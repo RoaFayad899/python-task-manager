@@ -24,3 +24,54 @@ def peek(queue):
 
 def is_empty(queue):
     return len(queue) == 0
+
+# Task Functions
+# Extract highest priority task and remove it when completed
+def complete_next_task(queue):
+    if is_empty(queue):
+        print("No tasks in the queue.")
+        return None
+
+    # Find task with highest priority (lowest number)
+    highest_priority_task = queue[0]
+    for task in queue:
+        if task.priority < highest_priority_task.priority:
+            highest_priority_task = task
+
+    print("\nNext task to complete:")
+    print(highest_priority_task)
+
+    # Ask user if they want to complete it
+    answer = input("Do you want to mark this task as completed? (yes/no): ").strip().lower()
+    if answer == "yes":
+        queue.remove(highest_priority_task)
+        print("Task removed from the queue.")
+    else:
+        print("Task was not removed.")
+
+    return highest_priority_task
+
+# Search for task
+def search_for_task(queue, title):
+    sorted_queue = sorted(queue, key=lambda t: t.title)
+    low, high = 0, len(sorted_queue) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if sorted_queue[mid].title == title:
+            print("Task found:")
+            print(sorted_queue[mid])
+            return sorted_queue[mid]
+        elif sorted_queue[mid].title < title:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    print("Task not found.")
+    return None
+
+# Sorting Tasks by duration ascending
+def sort_tasks(queue):
+    return sorted(queue, key=lambda t: t.duration)
+
+
