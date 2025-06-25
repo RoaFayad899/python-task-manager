@@ -75,3 +75,30 @@ def sort_tasks(queue):
     return sorted(queue, key=lambda t: t.duration)
 
 
+# Input + Execution
+
+task_queue = []
+
+num_tasks = int(input("How many tasks do you want to create? "))
+
+for i in range(num_tasks):
+    print(f"\nTask {i+1}:")
+    title = input("Enter task title: ")
+    duration = int(input("Enter duration (minutes): "))
+    priority = int(input("Enter priority (lower number = higher priority): "))
+    insert(task_queue, Task(title, duration, priority))
+
+print("\nAll tasks entered:")
+for task in task_queue:
+    print(task)
+
+print("\n--- Complete Next Task ---")
+complete_next_task(task_queue)
+
+search_title = input("\nEnter a title to search for: ")
+search_for_task(task_queue, search_title)
+
+print("\nTasks sorted by duration:")
+sorted_tasks = sort_tasks(task_queue)
+for task in sorted_tasks:
+    print(task)
